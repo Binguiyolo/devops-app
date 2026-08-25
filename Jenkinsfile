@@ -1,8 +1,10 @@
 pipeline {
-agent {'Jenkins-Slave'}
+agent {
+ label 'Jenkins-Slave'
+}
   tools {
-    jdk 'Java21'
-    maven 'Maven3'
+    jdk 'JDK21'
+    maven 'MAVEN3'
     
         }
   stages{
