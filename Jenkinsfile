@@ -4,7 +4,7 @@ agent {
 }
   tools {
     jdk 'JDK21'
-    maven 'MAVEN3'
+    maven 'Maven3'
     
         }
   stages{
