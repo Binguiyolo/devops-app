@@ -16,7 +16,7 @@ agent {
   }
     stage ("Checkout from SCM"){
     steps{
-    git branch :'main',credentialsId: 'github',url:'https://github.com/Binguiyolo/devops-app/'
+    git branch :'main',credentialsId: 'Github',url:'https://github.com/Binguiyolo/devops-app/'
     }  
     }
     stage ("Build Application"){
