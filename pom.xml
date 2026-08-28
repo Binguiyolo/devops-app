@@ -53,6 +53,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                     <configuration>
+                <!-- Remplacez par le chemin complet de votre classe principale -->
+                <mainClass>com.donaldcode.jpaprojects.EmployeeManagementSystemApplication</mainClass>
+            </configuration>
             </plugin>
         </plugins>
     </build>
