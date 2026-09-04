@@ -7,6 +7,14 @@ agent {
     maven 'Maven3'
     
         }
+ environment {
+ APP_NAME="devops-app-ci"
+ RELEASE= "1.0.0"
+ DOCKER_USER= "Erly123"
+ DOCKER_PASS="Yeshua_4me"
+ IMAGE_NAME="${ DOCKER_USER}"+"/"+"${APP_NAME}" 
+ IMAGE_TAG="${RELEASE-${BUILD_NUMBER}"
+ }
   stages{
   stage ("Cleanup Workspace"){
   steps{
@@ -46,5 +54,19 @@ agent {
     }
     }
    }
+  stage ("Build & PushDocker Image"){
+   steps {
+
+    script{
+     docker.withRegistry('',DOCKER_PASS){
+     docker.image = docker.build "${IMAGE_NAME}"
+     }
+     docker.withRegistry('',DOCKER_PASS){
+     docker_image.push("${IMAGE_TAG}")
+     docker_image.push('latest')
+     }
+    }
+   }
+  }
   }
 }
