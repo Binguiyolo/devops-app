@@ -29,5 +29,14 @@ agent {
     sh "mvn test"
         }
        }
+   stage ("Sonarqube Analysis"){
+   steps{
+    script {
+    withSonarQubeEnv(credentialsID:'Jenkins-Sonarqube-Tokens')
+     sh"mvn sonar:sonar"
+    }
+   }
+    
+   }
   }
 }
