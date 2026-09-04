@@ -53,7 +53,7 @@ agent {
     }
     }
    }
-  stage ("Build & PushDocker Image"){
+  stage ("Build & Push Docker Image"){
    steps {
 
     script{
