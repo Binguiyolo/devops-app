@@ -39,10 +39,10 @@ agent {
    }
     
    }
-   stage ('Quality Gate'){
+   stage ("Quality Gate"){
     steps {
     script {
-     waitForQualityGate abortPipeline : false,credentialsId:'Jenkins-Sonarqube-Tokens'
+     waitForQualityGate  abortPipeline : false,credentialsId:'Jenkins-Sonarqube-Tokens'
     }
     }
    }
