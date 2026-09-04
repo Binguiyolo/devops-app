@@ -5,7 +5,6 @@ agent {
   tools {
     jdk 'JDK21'
     maven 'Maven3'
-    
         }
  environment {
  APP_NAME="devops-app-ci"
