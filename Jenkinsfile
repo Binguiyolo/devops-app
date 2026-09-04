@@ -7,7 +7,7 @@ agent {
     maven 'Maven3'
         }
  environment {
- APP_NAME="devops-app-ci"
+ APP_NAME="EmployeeManagementSystem"
  RELEASE= "1.0.0"
  DOCKER_USER= "Erly123"
  DOCKER_PASS="Yeshua_4me"
