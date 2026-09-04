@@ -12,7 +12,7 @@ agent {
  DOCKER_USER= "Erly123"
  DOCKER_PASS="Yeshua_4me"
  IMAGE_NAME="${ DOCKER_USER}"+"/"+"${APP_NAME}" 
- IMAGE_TAG="${RELEASE-${BUILD_NUMBER}"
+ IMAGE_TAG="${RELEASE}-${BUILD_NUMBER}"
  }
   stages{
   stage ("Cleanup Workspace"){
