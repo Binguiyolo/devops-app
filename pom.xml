@@ -58,6 +58,11 @@
                 <mainClass>com.donaldcode.jpaprojects.EmployeeManagementSystemApplication</mainClass>
             </configuration>
             </plugin>
+                 <plugin>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>4.0.0.4121</version> <!-- Use the latest version suitable for your project -->
+        </plugin>
         </plugins>
     </build>
 </project>
