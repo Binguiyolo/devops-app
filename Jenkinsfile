@@ -33,7 +33,8 @@ agent {
    steps{
     script {
     withSonarQubeEnv(credentialsID:'Jenkins-Sonarqube-Tokens'){
-     sh'mvn clean verify sonar:sonar'
+     sh'mvn clean verify mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+'
     }
     }
    }
