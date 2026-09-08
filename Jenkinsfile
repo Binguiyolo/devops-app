@@ -39,7 +39,7 @@ agent {
    stage ('Sonarqube Analysis'){
    steps{
     script {
-    withSonarQubeEnv(credentialsID:'Jenkins-Sonarqube-Tokens'){
+    withSonarQubeEnv(credentialsId:'Jenkins-Sonarqube-Tokens'){
      sh'mvn clean verify  sonar:sonar'
     }
     }
@@ -53,12 +53,13 @@ agent {
     }
     }
    }
+  
   stage ("Build & Push Docker Image"){
    steps {
 
     script{
      docker.withRegistry('',DOCKER_PASS){
-     docker.image = docker.build "${IMAGE_NAME}"
+     docker_image = docker.build "${IMAGE_NAME}"
      }
      docker.withRegistry('',DOCKER_PASS){
      docker_image.push("${IMAGE_TAG}")
