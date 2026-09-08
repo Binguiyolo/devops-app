@@ -72,7 +72,7 @@ agent {
      sh('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image Erly123/EmployeeManagementSystem:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGHT, CRITICAL --format table')
     }
    }
-  }
+  
  stage ('Cleanup Artifacts'){
  steps {
   script {
@@ -81,6 +81,7 @@ agent {
   }
  }
  }
+}
 }
   
 
