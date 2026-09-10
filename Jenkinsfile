@@ -10,7 +10,7 @@ agent {
  APP_NAME="EmployeeManagementSystem"
  RELEASE= "1.0.0"
  DOCKER_USER= "Erly123"
- DOCKER_PASS='Yeshua_4me'
+ DOCKER_PASS='dockerhub'
  IMAGE_NAME="${ DOCKER_USER}"+"/"+"${APP_NAME}" 
  IMAGE_TAG="${RELEASE}-${BUILD_NUMBER}"
  }
@@ -61,10 +61,10 @@ agent {
    steps {
 
     script{
-     docker.withRegistry('',DOCKER_PASS){
+     docker.withRegistry('','dockerhub'){
      docker_image = docker.build "${IMAGE_NAME}"
      }
-     docker.withRegistry('',DOCKER_PASS){
+     docker.withRegistry('','dockerhub'){
      docker_image.push("${IMAGE_TAG}")
      docker_image.push('latest')
      }
