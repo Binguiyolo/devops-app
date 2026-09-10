@@ -7,7 +7,7 @@ agent {
     maven 'Maven3'
         }
  environment {
- APP_NAME="EmployeeManagementSystem"
+ APP_NAME="employeemanagementsystem"
  RELEASE= "1.0.0"
  DOCKER_USER= "Erly123"
  DOCKER_PASS='dockerhub'
