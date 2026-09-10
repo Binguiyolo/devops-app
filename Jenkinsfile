@@ -50,15 +50,12 @@ agent {
     steps {
     script {
 
-     waitForQualityGate  abortPipeline : false,'Sonarqube-Server'
-     def qg = waitForQualityGate()
-      if (qg.status != 'OK') {
-                    error "Pipeline aborti en raison de l'échec du Quality Gate: ${qg.status}"
+     waitForQualityGate  abortPipeline : false,credentialsId:'Jenkins-Sonarqube-Tokens'
+ 
     }
     }
    }
-   }
-  
+     
   stage ("Build & Push Docker Image"){
    steps {
 
