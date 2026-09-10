@@ -9,7 +9,7 @@ agent {
  environment {
  APP_NAME="employeemanagementsystem"
  RELEASE= "1.0.0"
- DOCKER_USER= "Erly123"
+ DOCKER_USER= "erly123"
  DOCKER_PASS='dockerhub'
  IMAGE_NAME="${ DOCKER_USER}"+"/"+"${APP_NAME}" 
  IMAGE_TAG="${RELEASE}-${BUILD_NUMBER}"
