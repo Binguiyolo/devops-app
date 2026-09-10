@@ -39,7 +39,7 @@ agent {
    stage ('Sonarqube Analysis'){
    steps{
     script {
-    withSonarQubeEnv(CredentialsId:'Jenkins-Sonar-Tokens'){
+    withSonarQubeEnv(credentialsId:'Jenkins-Sonar-Tokens'){
      sh"mvn sonar:sonar" 
     }
     }
