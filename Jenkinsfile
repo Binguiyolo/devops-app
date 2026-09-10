@@ -40,8 +40,6 @@ agent {
    steps{
     script {
     withSonarQubeEnv('Sonarqube-Server'){
-     // Lance l'analyse
-     sh "${scannerHome}/bin/sonar-scanner"
      sh'mvn clean verify  sonar:sonar'
     }
     }
