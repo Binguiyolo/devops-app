@@ -40,7 +40,7 @@ agent {
    steps{
     script {
     withSonarQubeEnv(credentialsId:'Jenkins-Sonarqube-Tokens'){
-     sh"mvn sonar:sonar" 
+     sh"mvn sonar:sonar -DSonar:$SONAR_TOKEN" 
     }
     }
    }
