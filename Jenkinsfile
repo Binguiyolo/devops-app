@@ -39,7 +39,6 @@ agent {
    stage ('Sonarqube Analysis'){
    steps{
     script {
-     def scannerHome = tool 'SonarQubeScanner'
     withSonarQubeEnv('Sonarqube-Server'){
      // Lance l'analyse
      sh "${scannerHome}/bin/sonar-scanner"
