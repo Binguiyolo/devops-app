@@ -39,8 +39,8 @@ agent {
    stage ('Sonarqube Analysis'){
    steps{
     script {
-    withSonarQubeEnv('Sonarqube-Server'){
-     sh'mvn clean verify  sonar:sonar'
+    withSonarQubeEnv(CredentialsId:'Jenkins-Sonar-Tokens'){
+     sh"mvn sonar:sonar" 
     }
     }
    }
