@@ -39,7 +39,10 @@ agent {
    stage ('Sonarqube Analysis'){
    steps{
     script {
-    withSonarQubeEnv(credentialsId:'Jenkins-Sonarqube-Tokens'){
+     def scannerHome = tool 'SonarQubeScanner'
+    withSonarQubeEnv('Sonarqube-Server'){
+     // Lance l'analyse
+     sh "${scannerHome}/bin/sonar-scanner"
      sh'mvn clean verify  sonar:sonar'
     }
     }
@@ -49,9 +52,14 @@ agent {
    stage ("Quality Gate"){
     steps {
     script {
-     waitForQualityGate  abortPipeline : false,credentialsId:'Jenkins-Sonarqube-Tokens'
+
+     waitForQualityGate  abortPipeline : false,'Sonarqube-Server'
+     def qg = waitForQualityGate()
+      if (qg.status != 'OK') {
+                    error "Pipeline aborti en raison de l'échec du Quality Gate: ${qg.status}"
     }
     }
+   }
    }
   
   stage ("Build & Push Docker Image"){
