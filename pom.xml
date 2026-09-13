@@ -65,7 +65,6 @@
                 <!-- Remplacez par le package et le nom exact de votre classe principale -->
                 <mainClass>com.donaldcode.EmployeeManagementSystemApplication</mainClass>
             </configuration>
-            <groupId>org.sonarsource.scanner.maven</groupId>
             <artifactId>sonar-maven-plugin</artifactId>
             <version>4.0.0.4121</version> <!-- Utilisez la dernière version stable -->
 			</plugin>
