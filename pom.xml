@@ -61,6 +61,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				 <configuration>
+                <!-- Remplacez par le package et le nom exact de votre classe principale -->
+                <mainClass>com.donaldcode.EmployeeManagementSystemApplication</mainClass>
+            </configuration>
 			</plugin>
 		</plugins>
 	</build>
