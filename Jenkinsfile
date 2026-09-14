@@ -57,25 +57,26 @@ agent {
    }
   
      
-  stage ("Build & Push Docker Image") {
+ stage ("Build & Push Docker Image") {
     steps {
         script {
+            // Étape de diagnostic : affiche le dossier actuel et son contenu dans les logs Jenkins
+            sh "pwd"
+            sh "ls -la"
+            
             docker.withRegistry('', DOCKER_PASS) {
                 def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
                 
-                // Déplacez Jenkins dans le dossier qui contient le Dockerfile
-                dir('devops-app') {
-                    // Le "." désigne maintenant le dossier courant (le sous-dossier)
-                    docker_image = docker.build(cleanImageName, ".")
-                }
+                // Build direct
+                docker_image = docker.build(cleanImageName, ".")
                 
-                // Push des tags
                 docker_image.push("${IMAGE_TAG}")
                 docker_image.push('latest')
             }
         }
     }
 }
+
 
    stage ("Trivy Scan"){
     steps{
