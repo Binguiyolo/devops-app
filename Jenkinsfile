@@ -60,14 +60,14 @@ agent {
   stage ("Build & Push Docker Image") {
     steps {
         script {
-            // Un seul bloc withRegistry suffit pour le build ET le push
             docker.withRegistry('', DOCKER_PASS) {
-                
-                // Correction : Le point du build-context doit être à l'extérieur des guillemets du nom de l'image
-                // On s'assure aussi de forcer le nom en minuscules pour Docker
                 def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
                 
-                docker_image = docker.build(cleanImageName, ".")
+                // Déplacez Jenkins dans le dossier qui contient le Dockerfile
+                dir('devops-app') {
+                    // Le "." désigne maintenant le dossier courant (le sous-dossier)
+                    docker_image = docker.build(cleanImageName, ".")
+                }
                 
                 // Push des tags
                 docker_image.push("${IMAGE_TAG}")
