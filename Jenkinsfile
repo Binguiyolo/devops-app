@@ -68,7 +68,7 @@ agent {
                 def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
                 
                 // Build direct
-                docker build -t "$JD_IMAGE" -f home/ubuntu/devops-app/Dockerfile 
+                docker build -t "${JD_IMAGE}" -f home/ubuntu/devops-app/Dockerfile 
 
                 docker_image = docker.build(cleanImageName, ".")
                 
