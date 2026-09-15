@@ -83,7 +83,7 @@ stage("Build and Push Docker Image") {
    stage ("Trivy Scan"){
     steps{
     script{
-    # 1. Créer un dossier temporaire sécurisé dans votre espace utilisateur
+    //1. Créer un dossier temporaire sécurisé dans votre espace utilisateur
 mkdir -p $HOME/trivy-tmp
 
 //2. Indiquer à Trivy d'utiliser ce nouveau dossier
