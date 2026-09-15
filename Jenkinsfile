@@ -66,14 +66,9 @@ agent {
             
             docker.withRegistry('', DOCKER_PASS) {
                 def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
-                
-                // Build direct
                 stage('Build Docker') {
-                 // ❌ Incorrect (provoque l'erreur si non défini globalement)
-sh "docker pull ${jd_image}"
-
-
-
+                def jd_image="votre image" 
+               sh "docker pull ${env.jd_image}"
     
         sh "docker build -t ${env.jd_image} -f home/ubuntu/Dockerfile ."
     
