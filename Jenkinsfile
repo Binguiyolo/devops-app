@@ -88,11 +88,10 @@ stage("Build and Push Docker Image") {
 mkdir -p $HOME/trivy-tmp
 
 export TMPDIR=$HOME/trivy-tmp
-trivy clean --all
-                        docker run --rm \
-                        -v /var/run/docker.sock:/var/run/docker.sock \
-                        -v $HOME/.cache:/root/.cache/ \
-                        aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 0 erly123/employeemanagementsystem
+    docker run --rm \
+   -v /var/run/docker.sock:/var/run/docker.sock \
+   -v $HOME/.cache:/root/.cache/ \
+   aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 0 erly123/employeemanagementsystem
          '''
     }
    }
