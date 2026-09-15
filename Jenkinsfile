@@ -57,32 +57,27 @@ agent {
    }
   
      
- stage ("Build & Push Docker Image") {
+stage("Build and Push Docker Image") {
     steps {
         script {
-            // Étape de diagnostic : affiche le dossier actuel et son contenu dans les logs Jenkins
-            sh "pwd"
-            sh "ls -la"
+            // Nettoyage du nom de l'image
+            def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
             
+            // Connexion au Registre Docker et exécution du Build/Push
             docker.withRegistry('', DOCKER_PASS) {
-                def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
-                stage('Build Docker') {
-                def jd_image="votre image" 
-               sh "docker pull ${env.jd_image}"
-    
-        sh "docker build -t ${env.jd_image} -f home/ubuntu/Dockerfile ."
-    
-}
- 
-
-                docker_image = docker.build(cleanImageName, ".")
                 
-                docker_image.push("${IMAGE_TAG}")
-                docker_image.push('latest')
+                // On spécifie le chemin absolu du Dockerfile avec l'option -f 
+                // Le "." à la fin définit le contexte de build (le workspace actuel)
+                def dockerImage = docker.build(cleanImageName, "-f /home/ubuntu/devops-app/Dockerfile .")
+                
+                // Push des tags
+                dockerImage.push("${IMAGE_TAG}")
+                dockerImage.push('latest')
             }
         }
     }
 }
+
 
 
    stage ("Trivy Scan"){
