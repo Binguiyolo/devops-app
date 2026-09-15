@@ -88,9 +88,9 @@ stage("Build and Push Docker Image") {
 mkdir -p $HOME/trivy-tmp
 
 export TMPDIR=$HOME/trivy-tmp
-trivy image --scanners vuln,misconfig employeemanagementsystem
+trivy image --scanners vuln,misconfig <votre image>
 # Ou pour ignorer spécifiquement les index Java si l'option est supportée par votre version :
-trivy image --skip-java-db-update employeemanagementsystem
+trivy image --skip-java-db-update <votre image>
     docker run --rm \
    -v /var/run/docker.sock:/var/run/docker.sock \
    -v $HOME/.cache:/root/.cache/ \
