@@ -69,6 +69,10 @@ agent {
                 stage('Build Docker') {
                 def jd_image="votre image" 
                sh "docker pull ${env.jd_image}"
+                # Debug line to catch the issue
+              echo "Pulling image: ${IMAGE_NAME}" 
+              # Fallback syntax to prevent pulling 'null'
+             docker pull ${IMAGE_NAME:-mydefault-image:latest}
     
         sh "docker build -t ${env.jd_image} -f home/ubuntu/Dockerfile ."
     
