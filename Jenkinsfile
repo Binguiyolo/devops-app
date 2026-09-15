@@ -69,9 +69,9 @@ agent {
                 
                 // Build direct
                 stage('Build Docker') {
-    steps {
+    
         sh "docker build -t ${JD_IMAGE} -f home/ubuntu/Dockerfile ."
-    }
+    
 }
  
 
