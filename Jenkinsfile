@@ -80,25 +80,29 @@ stage("Build and Push Docker Image") {
 
 
 
-   stage ("Trivy Scan"){
-    steps{
-    script{
+   stage ("Trivy Scan") {
+    steps {
+        script {
+            sh '''
+                mkdir -p $HOME/trivy-tmp
+                export TMPDIR=$HOME/trivy-tmp
 
-     sh '''
-mkdir -p $HOME/trivy-tmp
+                # Scan local (si Trivy est installé sur l'agent)
+                trivy image --scanners vuln,misconfig erly123/employeemanagementsystem
+                
+                # Optionnel : ignorer les index Java si nécessaire (sans antislash en fin de commentaire)
+                trivy image --skip-java-db-update erly123/employeemanagementsystem
 
-export TMPDIR=$HOME/trivy-tmp
-trivy image --scanners vuln,misconfig <votre image>
-# Ou pour ignorer spécifiquement les index Java si l'option est supportée par votre version :
-trivy image --skip-java-db-update <votre image>
-    docker run --rm \
-   -v /var/run/docker.sock:/var/run/docker.sock \
-   -v $HOME/.cache:/root/.cache/ \
-   aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 0 erly123/employeemanagementsystem
-         '''
+                # Scan via Docker
+                docker run --rm \
+                    -v /var/run/docker.sock:/var/run/docker.sock \
+                    -v $HOME/.cache:/root/.cache/ \
+                    aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 0 erly123/employeemanagementsystem
+            '''
+        }
     }
-   }
-   }
+}
+
   
  stage ('Cleanup Artifacts'){
  steps {
