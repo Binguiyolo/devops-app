@@ -83,6 +83,8 @@ stage("Build and Push Docker Image") {
    stage ("Trivy Scan"){
     steps{
     script{
+
+     sh '''
     //1. Créer un dossier temporaire sécurisé dans votre espace utilisateur
 mkdir -p $HOME/trivy-tmp
 
@@ -91,8 +93,6 @@ export TMPDIR=$HOME/trivy-tmp
 
 //3. Forcer Trivy à vider son cache pour repartir sur de bonnes bases
 trivy clean --all
-
-    sh '''
                         docker run --rm \
                         -v /var/run/docker.sock:/var/run/docker.sock \
                         -v $HOME/.cache:/root/.cache/ \
