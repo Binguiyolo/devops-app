@@ -69,8 +69,13 @@ agent {
                 
                 // Build direct
                 stage('Build Docker') {
+                 // ❌ Incorrect (provoque l'erreur si non défini globalement)
+sh "docker pull ${jd_image}"
+
+
+
     
-        sh "docker build -t ${jd_image} -f home/ubuntu/Dockerfile ."
+        sh "docker build -t ${env.jd_image} -f home/ubuntu/Dockerfile ."
     
 }
  
