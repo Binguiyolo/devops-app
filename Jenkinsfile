@@ -83,7 +83,11 @@ stage("Build and Push Docker Image") {
    stage ("Trivy Scan"){
     steps{
     script{
-     sh('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image Erly123/EmployeeManagementSystem:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGHT, CRITICAL --format table')
+    sh '''
+                        docker run --rm \
+                        -v /var/run/docker.sock:/var/run/docker.sock \
+                        -v $HOME/.cache:/root/.cache/ \
+                        aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 0 erly123/employeemanagementsystem
     }
    }
    }
