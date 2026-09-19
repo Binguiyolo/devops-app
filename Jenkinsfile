@@ -1,6 +1,6 @@
 pipeline {
 agent {
- label 'Jenkins-Slave'
+ label 'Jenkins-Agent'
 }
   tools {
     jdk 'JDK21'
