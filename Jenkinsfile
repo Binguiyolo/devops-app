@@ -39,7 +39,7 @@ agent {
    stage ('Sonarqube Analysis'){
    steps{
     script {
-    withSonarQubeEnv(credentialsId:'Jenkins-Sonarqube-Tokens'){
+    withSonarQubeEnv(credentialsId:'jenkins-sonarqube-tokens'){
      sh"mvn sonar:sonar"  
     }
     }
@@ -50,7 +50,7 @@ agent {
     steps {
     script {
 
-     waitForQualityGate  abortPipeline : false,credentialsId:'Jenkins-Sonarqube-Tokens'
+     waitForQualityGate  abortPipeline : false,credentialsId:'jenkins-sonarqube-tokens'
  
     }
     }
