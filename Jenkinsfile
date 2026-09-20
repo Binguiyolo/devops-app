@@ -68,7 +68,7 @@ stage("Build and Push Docker Image") {
                 
                 // On spécifie le chemin absolu du Dockerfile avec l'option -f 
                 // Le "." à la fin définit le contexte de build (le workspace actuel)
-                def dockerImage = docker.build(cleanImageName, "-f /home/ubuntu/devops-app/Dockerfile /home/ubuntu/devops-app ")
+                def dockerImage = docker.build(cleanImageName, "-f /home/ubuntu/Dockerfile /home/ubuntu/ ")
                 
                 // Push des tags
                 dockerImage.push("${IMAGE_TAG}")
