@@ -125,8 +125,8 @@ stage("Build and Push Docker Image") {
                 # docker pull ${cleanImageName}:latest
                 
                 # 3. Arrêter et supprimer l'ancien conteneur s'il existe
-                docker stop ${APP_NAME} || true
-                docker rm ${APP_NAME} || true
+                # docker stop ${APP_NAME} || true
+                # docker rm ${APP_NAME} || true
                    # 4. Lancer le nouveau conteneur sur le port 5173
                 # Le format est -p PORT_EXTERNE:PORT_INTERNE. 
                 # Si votre application Java écoute sur le port 8080 dans le conteneur, on fait 5173:8080
