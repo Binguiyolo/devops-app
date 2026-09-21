@@ -109,25 +109,32 @@ stage("Build and Push Docker Image") {
 }
 
    // --- NOUVELLE ÉTAPE : DÉPLOIEMENT SUR AWS UBUNTU SUR LE PORT 5173 ---
-    stage("Deploy to AWS") {
+      stage("Deploy to AWS") {
       steps {
         script {
           def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
           
-          // Utilisation du plugin SSH Agent pour se connecter à AWS de manière sécurisée
           sshagent([env.SSH_CREDENTIALS_ID]) {
-           // 🟢 CORRIGÉ : Utilisation de guillemets simples triple (''') pour éviter les conflits de parenthèses de commentaires
-            // Les variables Jenkins sont passées proprement via l'environnement Bash
-            sh '''#!/bin/bash
-            ssh -o StrictHostKeyChecking=no ${AWS_USER}@${AWS_INSTANCE_IP} "
-                echo '${DOCKER_PASS}' | docker login -u '${DOCKER_USER}' --password-stdin || true
+            // Utilisation de """ pour injecter correctement les variables Jenkins dans le script SSH
+            sh """
+            ssh -o StrictHostKeyChecking=no ${AWS_USER}@${AWS_INSTANCE_IP} '
+                # 1. Connexion à Docker Hub
+                echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin || true
+                
+                # 2. Récupérer la dernière image
                 docker pull ${cleanImageName}:latest
+                
+                # 3. Nettoyer l'ancien conteneur s'il existe
                 docker stop ${APP_NAME} || true
                 docker rm ${APP_NAME} || true
+                
+                # 4. Lancer le nouveau conteneur
                 docker run -d --name ${APP_NAME} -p 5173:8080 --restart always ${cleanImageName}:latest
-                echo 'Application déployée avec succès sur le port 5173 !'
-            "
-            '''
+                
+                echo "Vérification du conteneur sur le serveur :"
+                docker ps -a
+            '
+            """
             }
         }
       }
