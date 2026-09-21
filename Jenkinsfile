@@ -13,6 +13,11 @@ agent {
  DOCKER_PASS='dockerhub'
  IMAGE_NAME="${ DOCKER_USER}"+"/"+"${APP_NAME}" 
  IMAGE_TAG="${RELEASE}-${BUILD_NUMBER}"
+
+  // --- VARIABLES DE DÉPLOIEMENT AWS ---
+    SSH_CREDENTIALS_ID = 'aws-ubuntu-ssh-key' // ID de votre clé PEM dans Jenkins
+    AWS_INSTANCE_IP   = ':13.60.40.109' // IP de votre EC2 AWS
+    AWS_USER          = 'ubuntu' 
  }
   stages{
   stage ("Cleanup Workspace"){
