@@ -122,7 +122,7 @@ stage("Build and Push Docker Image") {
                 echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin || true
                 
                 # 2. Récupérer la dernière version de l'image sur le serveur AWS
-                docker pull ${cleanImageName}:latest
+                # docker pull ${cleanImageName}:latest
                 
                 # 3. Arrêter et supprimer l'ancien conteneur s'il existe
                 docker stop ${APP_NAME} || true
