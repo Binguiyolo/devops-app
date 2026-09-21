@@ -16,7 +16,7 @@ agent {
 
   // --- VARIABLES DE DÉPLOIEMENT AWS ---
     SSH_CREDENTIALS_ID = 'aws-ubuntu-ssh-key' // ID de votre clé PEM dans Jenkins
-    AWS_INSTANCE_IP   = ':13.60.40.109' // IP de votre EC2 AWS
+    AWS_INSTANCE_IP   = '13.60.40.109' // IP de votre EC2 AWS
     AWS_USER          = 'ubuntu' 
  }
   stages{
@@ -116,25 +116,18 @@ stage("Build and Push Docker Image") {
           
           // Utilisation du plugin SSH Agent pour se connecter à AWS de manière sécurisée
           sshagent([env.SSH_CREDENTIALS_ID]) {
-            sh """
-            ssh -o StrictHostKeyChecking=no ${AWS_USER}@${AWS_INSTANCE_IP} '
-                # 1. Connexion au Docker Hub sur le serveur distant pour récupérer l'image privée (si elle est privée)
-                echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin || true
-                
-                # 2. Récupérer la dernière version de l'image sur le serveur AWS
-                # docker pull ${cleanImageName}:latest
-                
-                # 3. Arrêter et supprimer l'ancien conteneur s'il existe
-                # docker stop ${APP_NAME} || true
-                # docker rm ${APP_NAME} || true
-                   # 4. Lancer le nouveau conteneur sur le port 5173
-                # Le format est -p PORT_EXTERNE:PORT_INTERNE. 
-                # Si votre application Java écoute sur le port 8080 dans le conteneur, on fait 5173:8080
+           // 🟢 CORRIGÉ : Utilisation de guillemets simples triple (''') pour éviter les conflits de parenthèses de commentaires
+            // Les variables Jenkins sont passées proprement via l'environnement Bash
+            sh '''#!/bin/bash
+            ssh -o StrictHostKeyChecking=no ${AWS_USER}@${AWS_INSTANCE_IP} "
+                echo '${DOCKER_PASS}' | docker login -u '${DOCKER_USER}' --password-stdin || true
+                docker pull ${cleanImageName}:latest
+                docker stop ${APP_NAME} || true
+                docker rm ${APP_NAME} || true
                 docker run -d --name ${APP_NAME} -p 5173:8080 --restart always ${cleanImageName}:latest
-                
-                echo "Application déployée avec succès sur le port 5173 !"
-              '
-            """
+                echo 'Application déployée avec succès sur le port 5173 !'
+            "
+            '''
             }
         }
       }
