@@ -3,7 +3,7 @@ agent {
  label 'Jenkins-Agent'
 }
   tools {
-    jdk 'JDK21'
+    jdk 'java21'
     maven 'Maven3'
         }
  environment {
