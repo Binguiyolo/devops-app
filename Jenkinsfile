@@ -69,7 +69,7 @@ stage("Build and Push Docker Image") {
             def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
             
             // Connexion au Registre Docker et exécution du Build/Push
-            docker.withRegistry('', DOCKER_PASS) {
+            docker.withRegistry('', 'dockerhub') {
                 
                 // On spécifie le chemin absolu du Dockerfile avec l'option -f 
                 // Le "." à la fin définit le contexte de build (le workspace actuel)
