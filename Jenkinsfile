@@ -18,7 +18,7 @@ pipeline {
 
         // --- VARIABLES DE DÉPLOIEMENT AWS ---
         SSH_CREDENTIALS_ID = 'aws-ubuntu-ssh-key' // ID de votre clé PEM dans Jenkins
-        AWS_INSTANCE_IP    = '13.60.40.109'       // IP de votre EC2 AWS
+        AWS_INSTANCE_IP    = '13.60.40.13'       // IP de votre EC2 AWS
         AWS_USER           = 'ubuntu' 
     }
     
