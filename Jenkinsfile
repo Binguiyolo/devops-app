@@ -101,25 +101,36 @@ stage("Build and Push Docker Image") {
         }
     }
 }
+stage('Deploy to Server') {
+    steps {
+        // Optionnel mais fortement recommandé : utiliser sshagent pour gérer la clé privée
+        // sshagent(['votre-credentials-id-ssh']) {
+            
+            sh """
+            ssh -o StrictHostKeyChecking=no ubuntu@13.60.40.109 << 'EOF'
+                # 1. Connexion à Docker Hub
+                echo "dockerhub" | docker login -u "erly123" --password-stdin || true
 
-ssh -o StrictHostKeyChecking=no ubuntu@13.60.40.109 << 'EOF'
-    # 1. Connexion à Docker Hub
-    echo "dockerhub" | docker login -u "erly123" --password-stdin || true
+                # 2. Récupérer la dernière image
+                docker pull erly123/employeemanagementsystem:latest
 
-    # 2. Récupérer la dernière image
-    docker pull erly123/employeemanagementsystem:latest
+                # 3. Nettoyer l'ancien conteneur s'il existe
+                docker stop employeemanagementsystem || true
+                docker rm employeemanagementsystem || true
 
-    # 3. Nettoyer l'ancien conteneur s'il existe
-    docker stop employeemanagementsystem || true
-    docker rm employeemanagementsystem || true
+                # 4. Lancer le nouveau conteneur
+                docker run -d --name employeemanagementsystem -p 5173:8080 --restart always erly123/employeemanagementsystem:latest
 
-    # 4. Lancer le nouveau conteneur
-    docker run -d --name employeemanagementsystem -p 5173:8080 --restart always erly123/employeemanagementsystem:latest
+                # 5. Vérification
+                echo "Vérification du conteneur sur le serveur distant :"
+                docker ps -a
 
-    # 5. Vérification du conteneur sur le serveur distant
-    echo "Vérification du conteneur sur le serveur :"
-    docker ps -a
-EOF
+            """
+            
+         }
+    }
+}
+
 
             '
             """
