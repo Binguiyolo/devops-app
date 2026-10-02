@@ -65,15 +65,13 @@ agent {
 stage("Build and Push Docker Image") {
     steps {
         script {
-            // Nettoyage du nom de l'image
             def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
             
-            // Connexion au Registre Docker et exécution du Build/Push
+            // Laissez l'URL vide ('') pour Docker Hub, 'dockerhub' est l'ID de vos credentials Jenkins
             docker.withRegistry('', 'dockerhub') {
                 
-                // On spécifie le chemin absolu du Dockerfile avec l'option -f 
-                // Le "." à la fin définit le contexte de build (le workspace actuel)
-                def dockerImage = docker.build(cleanImageName, "-f /home/ubuntu/Dockerfile /home/ubuntu/ ")
+                // Le point "." indique que le build s'exécute dans le workspace Jenkins actuel
+                def dockerImage = docker.build(cleanImageName, ".")
                 
                 // Push des tags
                 dockerImage.push("${IMAGE_TAG}")
