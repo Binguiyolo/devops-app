@@ -83,28 +83,25 @@ stage("Build and Push Docker Image") {
 
 
 
-   stage ("Trivy Scan") {
+  stage("Trivy Scan") {
     steps {
         script {
-            sh '''
-                mkdir -p $HOME/trivy-tmp
-                export TMPDIR=$HOME/trivy-tmp
+            def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
+            
+            // On utilise uniquement la version Docker pour s'affranchir de l'installation locale
+            sh """
+                mkdir -p \$HOME/trivy-tmp
+                export TMPDIR=\$HOME/trivy-tmp
 
-                # Scan local (si Trivy est installé sur l'agent)
-                trivy image --scanners vuln,misconfig erly123/employeemanagementsystem
-                
-                # Optionnel : ignorer les index Java si nécessaire (sans antislash en fin de commentaire)
-                trivy image --skip-java-db-update erly123/employeemanagementsystem
-
-                # Scan via Docker
                 docker run --rm \
                     -v /var/run/docker.sock:/var/run/docker.sock \
-                    -v $HOME/.cache:/root/.cache/ \
-                    aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 0 erly123/employeemanagementsystem
-            '''
+                    -v \$HOME/.cache:/root/.cache/ \
+                    aquasec/trivy:latest image --severity HIGH,CRITICAL --exit-code 0 ${cleanImageName}:${IMAGE_TAG}
+            """
         }
     }
 }
+
 
    // --- NOUVELLE ÉTAPE : DÉPLOIEMENT SUR AWS UBUNTU SUR LE PORT 5173 ---
       stage("Deploy to AWS") {
