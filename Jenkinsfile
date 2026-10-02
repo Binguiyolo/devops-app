@@ -102,32 +102,25 @@ stage("Build and Push Docker Image") {
     }
 }
 
+ssh -o StrictHostKeyChecking=no ubuntu@13.60.40.109 << 'EOF'
+    # 1. Connexion à Docker Hub
+    echo "dockerhub" | docker login -u "erly123" --password-stdin || true
 
-   // --- NOUVELLE ÉTAPE : DÉPLOIEMENT SUR AWS UBUNTU SUR LE PORT 5173 ---
-      stage("Deploy to AWS") {
-      steps {
-        script {
-          def cleanImageName = "${IMAGE_NAME}".toLowerCase().trim()
-          
-          sshagent([env.SSH_CREDENTIALS_ID]) {
-            // Utilisation de """ pour injecter correctement les variables Jenkins dans le script SSH
-            sh """
-            ssh -o StrictHostKeyChecking=no ${AWS_USER}@${AWS_INSTANCE_IP} '
-                # 1. Connexion à Docker Hub
-                echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin || true
-                
-                # 2. Récupérer la dernière image
-                docker pull ${cleanImageName}:latest
-                
-                # 3. Nettoyer l'ancien conteneur s'il existe
-                docker stop ${APP_NAME} || true
-                docker rm ${APP_NAME} || true
-                
-                # 4. Lancer le nouveau conteneur
-                docker run -d --name ${APP_NAME} -p 5173:8080 --restart always ${cleanImageName}:latest
-                
-                echo "Vérification du conteneur sur le serveur :"
-                docker ps -a
+    # 2. Récupérer la dernière image
+    docker pull erly123/employeemanagementsystem:latest
+
+    # 3. Nettoyer l'ancien conteneur s'il existe
+    docker stop employeemanagementsystem || true
+    docker rm employeemanagementsystem || true
+
+    # 4. Lancer le nouveau conteneur
+    docker run -d --name employeemanagementsystem -p 5173:8080 --restart always erly123/employeemanagementsystem:latest
+
+    # 5. Vérification du conteneur sur le serveur distant
+    echo "Vérification du conteneur sur le serveur :"
+    docker ps -a
+EOF
+
             '
             """
             }
