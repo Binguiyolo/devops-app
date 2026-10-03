@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-deployment
+  namespace: default
+  labels:
+    app: employeemanagementsystem
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employeemanagementsystem
+  template:
+    metadata:
+      labels:
+        app: employeemanagementsystem
+    spec:
+      containers:
+      - name: ems-app
+        image: erly123/employeemanagementsystem:latest
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ems-service
+  namespace: default
+spec:
+  selector:
+    app: employeemanagementsystem
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
