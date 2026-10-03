@@ -49,11 +49,12 @@
 	<build>
 		<plugins>
 			<!-- AJOUT CRUCIAL : Plugin de repackage pour générer un JAR exécutable (Fat JAR) -->
+						<!-- Plugin de repackage pour générer un JAR exécutable avec la bonne classe principale -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.donaldcode.EmployeeManagementSystemApplication</mainClass>
+					<mainClass>donaldcode.jpaprojects.EmployeeManagementSystem.EmployeeManagementSystemApplication</mainClass>
 				</configuration>
 			</plugin>
 
