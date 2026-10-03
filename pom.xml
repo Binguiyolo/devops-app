@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://apache.org" xmlns:xsi="http://w3.org"
+	xsi:schemaLocation="http://apache.org https://apache.org">
 	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.4</version> <!-- Ajusté à une version stable et existante de Spring Boot -->
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>3.3.4</version>
+		<relativePath/>
 	</parent>
 	
 	<groupId>donaldcode.jpaprojects</groupId>
@@ -28,7 +28,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId> <!-- Correction du nom du starter web standard -->
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<!-- Driver Base de Données -->
@@ -41,23 +41,23 @@
 		<!-- Tests -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId> <!-- Correction du starter de test standard -->
+			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
-		<plugin>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-maven-plugin</artifactId>
-    <configuration>
-        <mainClass>donaldcode.jpaprojects.EmployeeManagementSystem.EmployeeManagementSystemApplication</mainClass>
-    </configuration>
-</plugin>
+		<plugins>
+			<!-- Plugin Spring Boot avec configuration Main Class -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>donaldcode.jpaprojects.EmployeeManagementSystem.EmployeeManagementSystemApplication</mainClass>
+				</configuration>
+			</plugin>
 
-
-
-			<!-- Votre plugin SonarScanner existant -->
+			<!-- Plugin SonarScanner -->
 			<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
@@ -67,4 +67,5 @@
 	</build>
 
 </project>
+
 
