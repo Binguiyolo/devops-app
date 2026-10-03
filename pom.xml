@@ -50,13 +50,12 @@
 		<plugins>
 			<!-- AJOUT CRUCIAL : Plugin de repackage pour générer un JAR exécutable (Fat JAR) -->
 						<!-- Plugin de repackage pour générer un JAR exécutable avec la bonne classe principale -->
+						<!-- Version simplifiée : Spring Boot va chercher le Main automatiquement -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>donaldcode.jpaprojects.EmployeeManagementSystem.EmployeeManagementSystemApplication</mainClass>
-				</configuration>
 			</plugin>
+
 
 			<!-- Votre plugin SonarScanner existant -->
 			<plugin>
