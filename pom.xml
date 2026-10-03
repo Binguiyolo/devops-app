@@ -47,24 +47,21 @@
 	</dependencies>
 
 	<build>
-		<plugins>
-			<!-- Plugin Spring Boot avec configuration Main Class -->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>donaldcode.jpaprojects.EmployeeManagementSystem.EmployeeManagementSystemApplication</mainClass>
-				</configuration>
-			</plugin>
-
-			<!-- Plugin SonarScanner -->
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>3.11.0.3922</version>
-			</plugin>
-		</plugins>
-	</build>
+    <plugins> <!-- Assurez-vous que cette balise est là -->
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <mainClass>donaldcode.jpaprojects.EmployeeManagementSystem.EmployeeManagementSystemApplication</mainClass>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.11.0.3922</version>
+        </plugin>
+    </plugins>
+</build>
 
 </project>
 
